@@ -1,0 +1,14 @@
+# GitHub Pages Configuration
+title: KONOMI MOOSIC
+description: Self-hosted music & video player powered by KONOMI System
+theme: null
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+exclude:
+  - README.md
+  - LICENSE
+  - .git
+  - .gitignore

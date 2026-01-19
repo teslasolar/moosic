@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎵 KONOMI MOOSIC 🎵</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>🧬 KONOMI MOOSIC 🎵</h1>
+      <p class="subtitle">Self-hosted music & video | No YouTube BS | Pure vibes</p>
+      <div class="system-status" id="systemStatus">
+        <span class="status-dot"></span>
+        <span id="statusText">KONOMI: Initializing...</span>
+      </div>
+    </header>
+
+    <!-- Main Player -->
+    <section class="player-section">
+      <div class="player-container">
+        <!-- Video/Visualizer Area -->
+        <div class="media-display" id="mediaDisplay">
+          <video id="videoPlayer" style="display:none;"></video>
+          <canvas id="visualizer"></canvas>
+          <div class="now-playing" id="nowPlaying">
+            <div class="track-art" id="trackArt">🎵</div>
+            <div class="track-info">
+              <h2 id="trackTitle">Select a track</h2>
+              <p id="trackArtist">--</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Player (hidden, controls via custom UI) -->
+        <audio id="audioPlayer"></audio>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="progress-container">
+            <span id="currentTime">0:00</span>
+            <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100">
+            <span id="duration">0:00</span>
+          </div>
+          <div class="control-buttons">
+            <button id="prevBtn" class="ctrl-btn">⏮️</button>
+            <button id="playBtn" class="ctrl-btn play-btn">▶️</button>
+            <button id="nextBtn" class="ctrl-btn">⏭️</button>
+            <button id="shuffleBtn" class="ctrl-btn">🔀</button>
+            <button id="repeatBtn" class="ctrl-btn">🔁</button>
+            <div class="volume-control">
+              <span>🔊</span>
+              <input type="range" id="volumeBar" class="volume-bar" value="80" min="0" max="100">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONOMI Processing Panel -->
+    <section class="konomi-panel">
+      <h3>⚡ KONOMI Processing</h3>
+      <div class="konomi-grid">
+        <div class="konomi-stat">
+          <span class="label">🧠 FemtoLLM</span>
+          <span class="value" id="femtoStatus">Ready</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">⚡ eVGPU</span>
+          <span class="value" id="evgpuStatus">4 cores</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">🧊 BlockArray</span>
+          <span class="value" id="blockStatus">10³</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">🎲 Cube</span>
+          <span class="value" id="cubeStatus">9 nodes</span>
+        </div>
+      </div>
+      <div class="femto-output" id="femtoOutput">
+        <p>🎯 FemtoLLM Analysis: Waiting for track...</p>
+      </div>
+    </section>
+
+    <!-- Playlist Section -->
+    <section class="playlist-section">
+      <div class="playlist-header">
+        <h3>📜 Playlist</h3>
+        <div class="playlist-actions">
+          <button id="addMediaBtn" class="action-btn">➕ Add Media</button>
+          <input type="file" id="fileInput" accept="audio/*,video/*" multiple style="display:none;">
+        </div>
+      </div>
+      <div class="playlist" id="playlist">
+        <div class="empty-playlist">
+          <p>🎵 No tracks yet!</p>
+          <p>Click "Add Media" or drop files here</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload Zone -->
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-content">
+        <span class="drop-icon">📁</span>
+        <p>Drop MP3/MP4 files here</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>🧬 KONOMI SYSTEM | eVGPU: CPU-powered | FemtoLLM: 16-dim | No GPU needed</p>
+      <p>Hosted on GitHub Pages | <a href="https://github.com" target="_blank">View Source</a></p>
+    </footer>
+  </div>
+
+  <!-- KONOMI System Scripts -->
+  <script src="js/konomi/evgpu.js"></script>
+  <script src="js/konomi/femto.js"></script>
+  <script src="js/konomi/blockarray.js"></script>
+  <script src="js/konomi/cube.js"></script>
+  <script src="js/konomi/system.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
