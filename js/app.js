@@ -67,7 +67,7 @@ class MoosicApp {
     this._setupVisualizer();
 
     // Load any saved playlist
-    this._loadSavedPlaylist();
+    await this._loadMediaLibrary();
 
     console.log('🎵 MOOSIC App ready!');
   }
@@ -762,14 +762,6 @@ class MoosicApp {
     }));
 
     localStorage.setItem('moosic_playlist_meta', JSON.stringify(data));
-  }
-
-  /**
-   * Load saved playlist (metadata only)
-   */
-  _loadSavedPlaylist() {
-    // Load from playlist.json in media folder
-    this._loadMediaLibrary();
   }
 
   /**
