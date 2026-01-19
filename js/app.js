@@ -450,8 +450,10 @@ class MoosicApp {
       this._updatePlayButton();
     }
 
-    // Revoke object URL
-    URL.revokeObjectURL(this.playlist[index].url);
+    // Revoke object URL (only for non-library tracks)
+    if (!this.playlist[index].isLibrary) {
+      URL.revokeObjectURL(this.playlist[index].url);
+    }
 
     this.playlist.splice(index, 1);
 
@@ -766,8 +768,49 @@ class MoosicApp {
    * Load saved playlist (metadata only)
    */
   _loadSavedPlaylist() {
-    // Note: We can't restore actual files, just metadata
-    // Files need to be re-added on each session
+    // Load from playlist.json in media folder
+    this._loadMediaLibrary();
+  }
+
+  /**
+   * Load tracks from media/playlist.json
+   */
+  async _loadMediaLibrary() {
+    try {
+      const response = await fetch('media/playlist.json');
+      if (!response.ok) {
+        console.log('No playlist.json found, using drag-drop only');
+        return;
+      }
+
+      const data = await response.json();
+      console.log(`📚 Loading library: ${data.name}`);
+
+      for (const trackData of data.tracks) {
+        const track = {
+          id: Date.now() + Math.random(),
+          name: trackData.name,
+          artist: trackData.artist || 'Unknown Artist',
+          file: null,
+          url: `media/${trackData.file}`,
+          type: trackData.type || (trackData.file.endsWith('.mp4') ? 'video' : 'audio'),
+          duration: 0,
+          analysis: null,
+          isLibrary: true // Mark as library track (don't revoke URL)
+        };
+
+        this.playlist.push(track);
+
+        // Analyze with KONOMI
+        this._analyzeTrack(track);
+      }
+
+      this._renderPlaylist();
+      this._updateStatus(`Loaded ${data.tracks.length} tracks from library`);
+
+    } catch (e) {
+      console.log('Could not load media library:', e.message);
+    }
   }
 }
 
