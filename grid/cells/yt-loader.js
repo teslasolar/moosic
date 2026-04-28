@@ -25,7 +25,12 @@ function ytPlay(id,title){
 
 async function ytInit(){
   var g=document.getElementById('yt-songs');
-  if(!g)return;
+  if(!g){
+    var cb=document.getElementById('cb_yt-grid');
+    if(!cb)return;
+    cb.innerHTML='<div id="yt-songs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:3px;padding:2px;overflow-y:auto;height:100%;scrollbar-width:none"></div>';
+    g=document.getElementById('yt-songs');
+  }
   var vids=await ytFetch();
   if(!vids.length){g.innerHTML='<div style="color:var(--er);font-size:7px;grid-column:1/-1">feed unavailable</div>';return}
   g.innerHTML=vids.map(function(v){
