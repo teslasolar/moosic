@@ -41,18 +41,35 @@ var MER_ORB=[
 var ALL=OUTER.concat(INNER);
 var pre=ALL.map(function(l){return{nodes:fS(l.n),ed:fE(fS(l.n),l.cd),r:l.r,color:l.color,sy:l.sy,sx:l.sx}});
 
-function initShield(canvasId,micBtnId,tabBtnId){
+function initShield(canvasId,audioBtnId){
 var cv=document.getElementById(canvasId),x=cv.getContext('2d'),W,H;
 function sz(){W=cv.width=cv.parentElement.clientWidth;H=cv.height=cv.parentElement.clientHeight}
 sz();window.addEventListener('resize',sz);
 
-function hook(stream){var ac=new AudioContext(),src=ac.createMediaStreamSource(stream);_an=ac.createAnalyser();_an.fftSize=128;_fr=new Uint8Array(_an.frequencyBinCount);src.connect(_an)}
-function setMicLabel(on){var b=micBtnId&&document.getElementById(micBtnId);if(!b)return;b.textContent=on?'🔴 Mic':'⚪ Mic';b.style.borderColor=on?'#ff4466':'#0af';b.style.color=on?'#ff4466':'#0af'}
-function setTabLabel(on){var b=tabBtnId&&document.getElementById(tabBtnId);if(!b)return;b.textContent=on?'🔴 Tab':'⚪ Tab';b.style.borderColor=on?'#ff4466':'#0af';b.style.color=on?'#ff4466':'#0af'}
-async function grabMic(){if(_an)return;try{hook(await navigator.mediaDevices.getUserMedia({audio:true}));setMicLabel(true)}catch(e){}}
-async function grabTab(){if(_an)return;try{var s=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include',systemAudio:'include'});s.getVideoTracks().forEach(function(t){t.stop()});hook(s);setTabLabel(true)}catch(e){}}
-if(micBtnId){var mb=document.getElementById(micBtnId);if(mb)mb.onclick=grabMic}
-if(tabBtnId){var tb=document.getElementById(tabBtnId);if(tb)tb.onclick=grabTab}
+var _hasMic=false,_hasTab=false,_hasExt=false;
+function updateBtn(){
+  var b=audioBtnId&&document.getElementById(audioBtnId);if(!b)return;
+  if((_hasMic||_hasExt)&&_hasTab){b.textContent='🔴 live';b.style.color='#ff4466';b.style.borderColor='#ff4466';}
+  else if(_hasMic||_hasExt){b.textContent='🎤 mic'; b.style.color='#ffaa00';b.style.borderColor='#ffaa00';}
+  else if(_hasTab)          {b.textContent='📺 tab'; b.style.color='#0af';   b.style.borderColor='#0af';}
+  else                      {b.textContent='⚪ audio';b.style.color='#0af';   b.style.borderColor='#0af';}
+}
+function hook(stream,isTab){
+  var ac=new AudioContext(),src=ac.createMediaStreamSource(stream);
+  _an=ac.createAnalyser();_an.fftSize=128;_fr=new Uint8Array(_an.frequencyBinCount);
+  src.connect(_an);
+  if(isTab){_hasTab=true;}else{_hasMic=true;}
+  updateBtn();
+}
+async function grabMic(){if(_an&&_hasMic)return;try{hook(await navigator.mediaDevices.getUserMedia({audio:true}),false)}catch(e){}}
+async function grabTab(){if(_hasTab)return;try{
+  var s=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include',systemAudio:'include'});
+  s.getVideoTracks().forEach(function(t){t.stop()});
+  hook(s,true);
+  s.getAudioTracks().forEach(function(t){t.onended=function(){_hasTab=false;if(!_hasMic){_an=null;_fr=null;}updateBtn();}});
+}catch(e){}}
+function stopTab(){_hasTab=false;if(!_hasMic){_an=null;_fr=null;}updateBtn();}
+if(audioBtnId){var ab=document.getElementById(audioBtnId);if(ab)ab.onclick=function(){if(_hasTab)stopTab();else{grabMic();grabTab();}};}
 
 // Auto-prime mic on first user gesture, then keep retrying every 5s until
 // permission is granted. Inside an iframe this works as long as the parent
@@ -74,6 +91,7 @@ if(tabBtnId){var tb=document.getElementById(tabBtnId);if(tb)tb.onclick=grabTab}
       var d=ev.data.data;
       if(!_extFr||_extFr.length!==d.length)_extFr=new Uint8Array(d.length);
       for(var _i=0;_i<d.length;_i++)_extFr[_i]=d[_i];
+      if(!_hasExt){_hasExt=true;updateBtn();}
     }
   });
 })();
