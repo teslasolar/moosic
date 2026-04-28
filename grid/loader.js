@@ -50,13 +50,23 @@ async function loadScreenConfig() {
   return screenConfig;
 }
 
+function detectDevice() {
+  var w = window.innerWidth;
+  if (w <= 300) return 'watch';
+  if (w <= 600) return 'mobile';
+  if (w <= 1024) return 'tablet';
+  return 'desktop';
+}
+
 async function loadGrid(screenId) {
   if (!screenConfig) await loadScreenConfig();
   const id = screenId || screenConfig.default;
   currentScreen = id;
 
-  // Check GitHub for _layout override
-  const ghLayout = await findTag('_layout');
+  // Check for device-specific layout first, then generic _layout
+  var device = detectDevice();
+  var ghLayout = await findTag('_layout_' + device);
+  if (!ghLayout || !ghLayout.cells) ghLayout = await findTag('_layout');
   let layout;
   if (ghLayout && ghLayout.cells) {
     layout = ghLayout;
