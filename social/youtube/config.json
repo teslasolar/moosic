@@ -1,0 +1,11 @@
+{
+  "_udt": "YouTubeConfig",
+  "default_channel": "@ThomasTheSolarCryptoEngine",
+  "channel_url": "https://www.youtube.com/@ThomasTheSolarCryptoEngine",
+  "embed_base": "https://www.youtube.com/embed/",
+  "search_base": "https://www.youtube.com/results?search_query=",
+  "oembed_api": "https://www.youtube.com/oembed?format=json&url=",
+  "invidious_api": "https://inv.nadeko.net/api/v1",
+  "auto_search": true,
+  "default_query": "ThomasTheSolarCryptoEngine music"
+}

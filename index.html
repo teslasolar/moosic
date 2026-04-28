@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="ui/css-konomi.css">
   <link rel="stylesheet" href="ui/css-playlist.css">
   <link rel="stylesheet" href="ui/css-misc.css">
+  <link rel="stylesheet" href="social/youtube/style.css">
 </head>
 <body>
   <div class="container">
@@ -83,6 +84,11 @@
       </div>
     </section>
 
+    <section class="playlist-section">
+      <div class="playlist-header"><h3>📺 YouTube · @ThomasTheSolarCryptoEngine</h3></div>
+      <div id="youtube-section"></div>
+    </section>
+
     <div class="drop-zone" id="dropZone">
       <div class="drop-content"><span class="drop-icon">📁</span><p>Drop MP3/MP4 files here</p></div>
     </div>
@@ -109,5 +115,9 @@
   <script src="js/player/app-drag.js"></script>
   <script src="js/player/app-visual.js"></script>
   <script src="js/player/app-events.js"></script>
+  <script type="module">
+    import { initYouTube } from './social/youtube/ui.js';
+    initYouTube('youtube-section');
+  </script>
 </body>
 </html>
