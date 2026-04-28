@@ -66,6 +66,8 @@ if(tabBtnId){var tb=document.getElementById(tabBtnId);if(tb)tb.onclick=grabTab}
   window.addEventListener('pointerdown',arm,{capture:true,once:true});
   window.addEventListener('keydown',arm,{capture:true,once:true});
   if(navigator.permissions&&navigator.permissions.query){navigator.permissions.query({name:'microphone'}).then(function(p){if(p.state==='granted')tick()}).catch(function(){})}
+  // Parent SCADA page signals when it has acquired the shared mic — prime immediately
+  window.addEventListener('message',function(ev){if(ev.data&&ev.data.type==='konomioke-mic-ready')arm()});
 })();
 
 function dOrb(l,cx,cy,r,s,av,band,idx){
