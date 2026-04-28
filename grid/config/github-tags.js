@@ -50,6 +50,14 @@ async function applyGithubTags(grid) {
       el = document.getElementById('cb_' + tag.cell_id);
     }
 
+    // System tags (_theme, _responsive, etc.) run scripts globally without a cell
+    if (!el && tag.cell_id.startsWith('_') && tag.script) {
+      const run = () => { try { new Function(tag.script)(); } catch (e) { console.warn('tag ' + tag.cell_id + ':', e.message); } };
+      run();
+      if (tag.poll) setInterval(run, tag.poll);
+      continue;
+    }
+
     if (!el) continue;
 
     // Static content
@@ -60,7 +68,7 @@ async function applyGithubTags(grid) {
       const run = () => { try { new Function('el', tag.script)(el); } catch (e) { el.innerHTML = '<span style="color:#ff4466;font-size:7px">' + e.message + '</span>'; } };
       run();
       if (tag.poll) setInterval(run, tag.poll);
-      else setTimeout(run, 100); // re-run once after render
+      else setTimeout(run, 100);
     }
   }
   return tags.length;
