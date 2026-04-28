@@ -1,19 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎵 KONOMI MOOSIC 🎵</title>
-  <link rel="stylesheet" href="ui/css-base.css">
-  <link rel="stylesheet" href="ui/css-header.css">
-  <link rel="stylesheet" href="ui/css-player.css">
-  <link rel="stylesheet" href="ui/css-konomi.css">
-  <link rel="stylesheet" href="ui/css-playlist.css">
-  <link rel="stylesheet" href="ui/css-misc.css">
-  <link rel="stylesheet" href="social/youtube/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="container">
+    <!-- Header -->
     <header class="header">
       <h1>🧬 KONOMI MOOSIC 🎵</h1>
       <p class="subtitle">Self-hosted music & video | No YouTube BS | Pure vibes</p>
@@ -23,8 +18,10 @@
       </div>
     </header>
 
+    <!-- Main Player -->
     <section class="player-section">
       <div class="player-container">
+        <!-- Video/Visualizer Area -->
         <div class="media-display" id="mediaDisplay">
           <video id="videoPlayer" style="display:none;"></video>
           <canvas id="visualizer"></canvas>
@@ -36,7 +33,11 @@
             </div>
           </div>
         </div>
+
+        <!-- Audio Player (hidden, controls via custom UI) -->
         <audio id="audioPlayer"></audio>
+
+        <!-- Controls -->
         <div class="controls">
           <div class="progress-container">
             <span id="currentTime">0:00</span>
@@ -58,19 +59,33 @@
       </div>
     </section>
 
+    <!-- KONOMI Processing Panel -->
     <section class="konomi-panel">
       <h3>⚡ KONOMI Processing</h3>
       <div class="konomi-grid">
-        <div class="konomi-stat"><span class="label">🧠 FemtoLLM</span><span class="value" id="femtoStatus">Ready</span></div>
-        <div class="konomi-stat"><span class="label">⚡ eVGPU</span><span class="value" id="evgpuStatus">4 cores</span></div>
-        <div class="konomi-stat"><span class="label">🧊 BlockArray</span><span class="value" id="blockStatus">10³</span></div>
-        <div class="konomi-stat"><span class="label">🎲 Cube</span><span class="value" id="cubeStatus">9 nodes</span></div>
+        <div class="konomi-stat">
+          <span class="label">🧠 FemtoLLM</span>
+          <span class="value" id="femtoStatus">Ready</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">⚡ eVGPU</span>
+          <span class="value" id="evgpuStatus">4 cores</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">🧊 BlockArray</span>
+          <span class="value" id="blockStatus">10³</span>
+        </div>
+        <div class="konomi-stat">
+          <span class="label">🎲 Cube</span>
+          <span class="value" id="cubeStatus">9 nodes</span>
+        </div>
       </div>
       <div class="femto-output" id="femtoOutput">
         <p>🎯 FemtoLLM Analysis: Waiting for track...</p>
       </div>
     </section>
 
+    <!-- Playlist Section -->
     <section class="playlist-section">
       <div class="playlist-header">
         <h3>📜 Playlist</h3>
@@ -80,44 +95,65 @@
         </div>
       </div>
       <div class="playlist" id="playlist">
-        <div class="empty-playlist"><p>🎵 No tracks yet!</p><p>Click "Add Media" or drop files here</p></div>
+        <div class="empty-playlist">
+          <p>🎵 No tracks yet!</p>
+          <p>Click "Add Media" or drop files here</p>
+        </div>
       </div>
     </section>
 
-    <section class="playlist-section">
-      <div class="playlist-header"><h3>📺 YouTube · @ThomasTheSolarCryptoEngine</h3></div>
-      <div id="youtube-section"></div>
-    </section>
-
+    <!-- Upload Zone -->
     <div class="drop-zone" id="dropZone">
-      <div class="drop-content"><span class="drop-icon">📁</span><p>Drop MP3/MP4 files here</p></div>
+      <div class="drop-content">
+        <span class="drop-icon">📁</span>
+        <p>Drop MP3/MP4 files here</p>
+      </div>
     </div>
 
+    <!-- YouTube Section -->
+    <section class="playlist-section">
+      <div class="playlist-header"><h3>📺 YouTube · @ThomasTheSolarCryptoEngine</h3></div>
+      <div style="padding:8px">
+        <div style="display:flex;gap:6px;margin-bottom:8px">
+          <input id="yt-url" type="text" placeholder="Paste YouTube URL or search..." style="flex:1;background:#1a1a2e;border:1px solid #333;color:#ddd;padding:8px;border-radius:6px;font-size:12px">
+          <button onclick="ytPlay()" style="background:#ff4444;border:none;color:#fff;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:700">▶</button>
+        </div>
+        <div id="yt-player" style="width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden">
+          <iframe id="yt-frame" src="https://www.youtube.com/embed?listType=user_uploads&list=ThomasTheSolarCryptoEngine" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="width:100%;height:100%"></iframe>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap" id="yt-links">
+          <a href="https://www.youtube.com/@ThomasTheSolarCryptoEngine" target="_blank" style="color:#ff4444;font-size:11px;text-decoration:none">📺 Channel</a>
+          <a href="https://www.youtube.com/@ThomasTheSolarCryptoEngine/videos" target="_blank" style="color:#aaa;font-size:11px;text-decoration:none">🎬 All Videos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
       <p>🧬 KONOMI SYSTEM | eVGPU: CPU-powered | FemtoLLM: 16-dim | No GPU needed</p>
     </footer>
   </div>
 
-  <script src="js/konomi/evgpu-core.js"></script>
-  <script src="js/konomi/evgpu-compute.js"></script>
-  <script src="js/konomi/femto-core.js"></script>
-  <script src="js/konomi/femto-analyze.js"></script>
-  <script src="js/konomi/femto-output.js"></script>
-  <script src="js/konomi/blockarray-core.js"></script>
-  <script src="js/konomi/blockarray-ops.js"></script>
-  <script src="js/konomi/cube-core.js"></script>
-  <script src="js/konomi/cube-render.js"></script>
-  <script src="js/konomi/system-init.js"></script>
-  <script src="js/konomi/system-run.js"></script>
-  <script src="js/player/app-init.js"></script>
-  <script src="js/player/app-controls.js"></script>
-  <script src="js/player/app-queue.js"></script>
-  <script src="js/player/app-drag.js"></script>
-  <script src="js/player/app-visual.js"></script>
-  <script src="js/player/app-events.js"></script>
-  <script type="module">
-    import { initYouTube } from './social/youtube/ui.js';
-    initYouTube('youtube-section');
+  <!-- KONOMI System Scripts -->
+  <script src="js/konomi/evgpu.js"></script>
+  <script src="js/konomi/femto.js"></script>
+  <script src="js/konomi/blockarray.js"></script>
+  <script src="js/konomi/cube.js"></script>
+  <script src="js/konomi/system.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+  function ytPlay() {
+    const input = document.getElementById('yt-url').value.trim();
+    if (!input) return;
+    const m = input.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+    const vid = m ? m[1] : null;
+    if (vid) {
+      document.getElementById('yt-frame').src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1&rel=0';
+    } else {
+      document.getElementById('yt-frame').src = 'https://www.youtube.com/embed?listType=search&list=' + encodeURIComponent(input);
+    }
+  }
+  document.getElementById('yt-url').addEventListener('keydown', e => { if (e.key === 'Enter') ytPlay(); });
   </script>
 </body>
 </html>
