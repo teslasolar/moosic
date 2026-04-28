@@ -22,3 +22,16 @@ function ytPlay(id,title){
   var tn=document.getElementById('track-name');
   if(tn)tn.textContent=(title||id).slice(0,60);
 }
+
+async function ytInit(){
+  var g=document.getElementById('yt-songs');
+  if(!g)return;
+  var vids=await ytFetch();
+  if(!vids.length){g.innerHTML='<div style="color:var(--er);font-size:7px;grid-column:1/-1">feed unavailable</div>';return}
+  g.innerHTML=vids.map(function(v){
+    return '<div onclick="ytPlay(\''+v.id+'\',\''+v.title.replace(/'/g,'&#39;')+'\')" style="cursor:pointer;text-align:center">'
+    +'<img src="https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg" style="width:100%;border-radius:2px;aspect-ratio:16/9;object-fit:cover" loading="lazy">'
+    +'<div style="font-size:5px;color:var(--t);margin-top:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+v.title+'</div>'
+    +'<div style="font-size:4px;color:var(--t2)">'+v.pub+'</div></div>'
+  }).join('');
+}

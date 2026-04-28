@@ -2,17 +2,3 @@
   <div style="color:var(--t2);font-size:7px;grid-column:1/-1;text-align:center">loading channel...</div>
 </div>
 <style>#yt-songs::-webkit-scrollbar{display:none}</style>
-<script>
-(async function(){
-  if(typeof ytFetch!=='function'){var s=document.createElement('script');s.src='cells/yt-loader.js';document.head.appendChild(s);await new Promise(function(r){s.onload=r;setTimeout(r,3000)})}
-  var vids=await ytFetch();
-  var g=document.getElementById('yt-songs');
-  if(!vids.length){g.innerHTML='<div style="color:var(--er);font-size:7px">feed unavailable</div>';return}
-  g.innerHTML=vids.map(function(v){
-    return '<div onclick="ytPlay(\''+v.id+'\',\''+v.title.replace(/'/g,'')+'\')" style="cursor:pointer;text-align:center">'
-    +'<img src="https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg" style="width:100%;border-radius:2px;aspect-ratio:16/9;object-fit:cover" loading="lazy">'
-    +'<div style="font-size:5px;color:var(--t);margin-top:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+v.title+'</div>'
-    +'<div style="font-size:4px;color:var(--t2)">'+v.pub+'</div></div>'
-  }).join('');
-})();
-</script>

@@ -44,6 +44,7 @@ async function boot() {
   await loadGrid();
   var ghTags = await applyGithubTags(document.getElementById('grid'));
   document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');
+  ytInit();
   setInterval(function(){ var el = document.getElementById('clock'); if (el) el.textContent = new Date().toLocaleTimeString() }, 1000);
 }
 boot();
