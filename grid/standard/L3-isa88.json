@@ -1,0 +1,13 @@
+{
+  "_udt": "KonomiStandard", "layer": 3, "name": "ISA-88", "scope": "Batch Control",
+  "equipment": "Enterprise→Site→Area→ProcessCell→Unit→EquipmentModule→ControlModule",
+  "recipe": "General→Site→Master→Control",
+  "procedure": "Procedure→UnitProcedure→Operation→Phase",
+  "phase_states": {
+    "normal": "IDLE→RUNNING→COMPLETE",
+    "hold": "RUNNING→HOLDING→HELD→RESTARTING→RUNNING",
+    "stop": "any→STOPPING→STOPPED",
+    "abort": "any→ABORTING→ABORTED"
+  },
+  "packml": "STOPPED⟷IDLE⟷STARTING→EXECUTE→COMPLETING→COMPLETE→RESETTING→IDLE"
+}

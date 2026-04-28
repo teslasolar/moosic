@@ -1,0 +1,16 @@
+{
+  "_udt": "KonomiStandard", "layer": 4, "name": "ISA-101", "scope": "HMI Design",
+  "principles": ["SITUATIONAL_AWARENESS>aesthetics","CONSISTENCY>novelty","GRAY_BACKGROUND","COLOR=meaning","LAYERS:progressive"],
+  "layers": {
+    "L1": "Overview:Plant/Site:KPIs,Status,Alarms",
+    "L2": "Area:Process Area:Flows,States,Trends",
+    "L3": "Unit:Equipment:Faceplate,Control",
+    "L4": "Detail:Diagnostic:Config,Tuning",
+    "L5": "Support:Maintenance:Calibration,History"
+  },
+  "colors": {
+    "Normal": "#808080", "Running": "#00AA00", "Stopped": "#404040",
+    "Warning": "#FFCC00", "Alarm": "#CC0000", "Maint": "#0066CC",
+    "Manual": "#FF6600", "Transition": "#00CCCC"
+  }
+}

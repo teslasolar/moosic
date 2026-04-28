@@ -1,0 +1,13 @@
+{
+  "_udt": "ScreenConfig",
+  "default": "player",
+  "screens": {
+    "player": { "layout": "config/layout.json", "cols": 8, "rows": 5, "label": "🎵 Player" },
+    "studio": { "layout": "screens/studio.json", "cols": 6, "rows": 4, "label": "🎛 Studio" },
+    "social": { "layout": "screens/social.json", "cols": 4, "rows": 3, "label": "📺 Social" },
+    "standard": { "layout": "screens/standard.json", "cols": 8, "rows": 6, "label": "📐 Standard" }
+  },
+  "nav_position": "header",
+  "github_tags": true,
+  "tag_poll_ms": 15000
+}

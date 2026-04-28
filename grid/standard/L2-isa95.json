@@ -1,0 +1,19 @@
+{
+  "_udt": "KonomiStandard", "layer": 2, "name": "ISA-95", "scope": "Enterprise↔Control",
+  "levels": {
+    "L4": { "name": "Business", "time": "days-months", "sys": ["ERP","BI"] },
+    "L3": { "name": "MOM/MES", "time": "shifts-days", "sys": ["MES","LIMS","WMS"] },
+    "L2": { "name": "Control", "time": "sec-hours", "sys": ["SCADA","HMI"] },
+    "L1": { "name": "Sensing", "time": "ms-sec", "sys": ["PLC","DCS","RTU"] },
+    "L0": { "name": "Process", "time": "continuous", "sys": ["Sensors","Actuators"] }
+  },
+  "hierarchy": "Enterprise→Site→Area→WorkCenter→WorkUnit→Equipment",
+  "equipment_states": ["Idle","Running","Faulted","Maintenance","Offline"],
+  "equipment_modes": ["Production","Maintenance","Manual","Automatic","Semiauto"],
+  "data_flows": {
+    "L4→L3": ["Schedule","MaterialDef","ProductDef","WorkOrder"],
+    "L3→L4": ["Performance","Inventory","Quality","Status"],
+    "L3→L2": ["Recipe","Setpoints","Commands"],
+    "L2→L3": ["ProcessData","Events","Alarms","Batch"]
+  }
+}

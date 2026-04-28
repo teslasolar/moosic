@@ -11,6 +11,8 @@
 <div class="H">
   <span style="color:var(--ign);font-weight:700;font-size:10px">🎵 KONOMI MOOSIC</span>
   <span style="color:var(--b)">│</span>
+  <span id="screen-nav" style="display:flex;gap:2px"></span>
+  <span style="color:var(--b)">│</span>
   <span id="status" style="color:var(--ok)">Loading...</span>
   <span style="flex:1"></span>
   <span style="color:var(--t2)" id="track-name">—</span>
@@ -38,6 +40,8 @@
 const CHANNEL_ID = 'UCTfSIAa_NtbysEFPrBgJwJA';
 
 async function boot() {
+  await loadScreenConfig();
+  document.getElementById('screen-nav').innerHTML = buildScreenNav();
   await loadGrid();
   const ghTags = await applyGithubTags(document.getElementById('grid'));
   document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');

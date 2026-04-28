@@ -1,0 +1,11 @@
+{
+  "_udt": "KonomiStandard", "layer": 7, "name": "MQTT+Sparkplug", "scope": "Lightweight PubSub",
+  "qos": { "0": "AtMostOnce", "1": "AtLeastOnce", "2": "ExactlyOnce" },
+  "topics": {
+    "NBIRTH": "node online+metrics", "NDEATH": "node offline",
+    "DBIRTH": "device online", "DDEATH": "device offline",
+    "NDATA": "node data", "DDATA": "device data",
+    "NCMD": "cmd→node", "DCMD": "cmd→device"
+  },
+  "format": "spBv1.0/{group}/{msgtype}/{edge}/{device}"
+}

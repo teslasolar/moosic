@@ -1,0 +1,11 @@
+{
+  "_udt": "KonomiStandard", "layer": 5, "name": "ISA-18.2", "scope": "Alarm Management",
+  "priorities": {
+    "P1": { "name": "Emergency", "response": "<1min", "color": "Red", "sound": "Continuous" },
+    "P2": { "name": "High", "response": "<10min", "color": "Orange", "sound": "Fast" },
+    "P3": { "name": "Medium", "response": "<1hr", "color": "Yellow", "sound": "Slow" },
+    "P4": { "name": "Low", "response": "Shift", "color": "Cyan", "sound": "None" }
+  },
+  "states": "NORMAL→UNACK→ACKED→NORMAL | UNACK→[clear]→RTN_UNACK→[ack]→NORMAL",
+  "metrics": { "rate": "<6/hr", "flood": ">10/10min", "stale": ">24hr", "P1": "<5%", "P2": "<15%" }
+}

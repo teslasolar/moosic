@@ -1,0 +1,6 @@
+{
+  "_udt": "KonomiStandard", "layer": 6, "name": "OPC-UA", "scope": "Industrial Interop",
+  "node_classes": ["Object","ObjectType","Variable","VariableType","Method","View","DataType","ReferenceType"],
+  "address_space": "Root→Objects→[Server,DeviceSet] | Root→Types→[ObjTypes,VarTypes,DataTypes]",
+  "companion_specs": { "ISA-95": "ns=isa95", "PackML": "ns=packml", "MDIS": "ns=mdis", "PLCopen": "ns=plcopen" }
+}

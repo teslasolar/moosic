@@ -1,0 +1,16 @@
+{
+  "_udt": "KonomiStandard",
+  "layer": 0,
+  "name": "META-STANDARD",
+  "scope": "How standards are defined",
+  "types": {
+    "STD": ["id:str","scope:str","udt:[UDT]","hierarchy:[LEVEL]","states:[SM]","entities:[ENTITY]","relations:[REL]","rules:[RULE]","crosswalk:{std:MAP}"],
+    "UDT": ["name:str","base:str?","fields:[{n,t,u,r,d}]","methods:[{n,p,r,d}]","constraints:[RULE]"],
+    "LEVEL": ["id:int","name:str","scope:str","timescale:str","systems:[str]","data_down:[str]","data_up:[str]"],
+    "SM": ["name:str","states:[str]","initial:str","transitions:[{from,to,trigger,guard,action}]"],
+    "ENTITY": ["name:str","udt:str","parent:str?","children:[str]","tags:{cat:[TAG]}"],
+    "REL": ["type:contains|ref|triggers|produces|consumes","from:str","to:str","card:1:1|1:N|N:M"],
+    "RULE": ["id:str","cond:expr","action:str","sev:info|warn|error|fatal"],
+    "CROSSWALK": ["from_std:str","from_ent:str","to_std:str","to_ent:str","map:exact|partial|semantic"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "_udt": "KonomiCrosswalks",
+  "maps": [
+    { "from": "ISA-95.WorkCenter", "to": "ISA-88.ProcessCell", "type": "exact" },
+    { "from": "ISA-95.WorkUnit", "to": "ISA-88.Unit", "type": "exact" },
+    { "from": "ISA-95.ProcessSegment", "to": "ISA-88.Operation", "type": "exact" },
+    { "from": "ISA-95.Equipment", "to": "OPCUA.Object(ns=isa95)", "type": "exact" },
+    { "from": "ISA-95.Property", "to": "OPCUA.Variable", "type": "exact" },
+    { "from": "ISA-88.Phase.RUNNING", "to": "PackML.EXECUTE", "type": "exact" },
+    { "from": "ISA-88.Phase.HELD", "to": "PackML.HELD", "type": "exact" },
+    { "from": "ISA-101.AlarmColor", "to": "ISA-18.Priority", "type": "semantic" },
+    { "from": "OPCUA.Variable", "to": "Sparkplug.Metric", "type": "exact" },
+    { "from": "OPCUA.Method", "to": "Sparkplug.NCMD/DCMD", "type": "semantic" }
+  ]
+}

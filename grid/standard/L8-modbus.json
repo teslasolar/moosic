@@ -1,0 +1,12 @@
+{
+  "_udt": "KonomiStandard", "layer": 8, "name": "Modbus", "scope": "Field Protocol",
+  "registers": {
+    "Coil": "0-65535:RW:bit:FC1/5/15",
+    "DI": "0-65535:RO:bit:FC2",
+    "HR": "0-65535:RW:u16:FC3/6/16",
+    "IR": "0-65535:RO:u16:FC4"
+  },
+  "data_types": ["BOOL:1coil","INT16:1reg","UINT16:1reg","INT32:2reg","FLOAT32:2reg:IEEE754","INT64:4reg","FLOAT64:4reg","STRING:Nreg"],
+  "byte_orders": ["ABCD","CDAB","BADC","DCBA"],
+  "exceptions": { "01": "IllegalFunc", "02": "IllegalAddr", "03": "IllegalVal", "04": "DeviceFail" }
+}

@@ -1,0 +1,10 @@
+{
+  "_udt": "KonomiStandard", "layer": 9, "name": "KPIs", "scope": "Performance Metrics",
+  "oee": "availability×performance×quality",
+  "targets": { "availability": ">90%", "performance": ">95%", "quality": ">99%", "oee": ">85%" },
+  "tree": "OEE→[Availability→[MTBF,MTTR,Downtime],Performance→[CycleTime,Throughput],Quality→[FPY,DefectRate]]",
+  "formulas": {
+    "availability": "run/(run+down)", "performance": "actual/ideal",
+    "quality": "good/total", "MTBF": "uptime/failures", "MTTR": "downtime/failures"
+  }
+}

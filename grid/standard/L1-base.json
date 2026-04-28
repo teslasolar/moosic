@@ -1,0 +1,13 @@
+{
+  "_udt": "KonomiStandard", "layer": 1, "name": "BASE UDTs",
+  "types": {
+    "Identifier": { "UUID": "str:global:xxxxxxxx-xxxx", "PATH": "str:hier:A/B/C", "TAG": "str:equip:Area_Unit_Point", "URN": "str:global:urn:dom:type:id" },
+    "Timestamp": { "ISO8601": "str:ms:UTC", "EPOCH_MS": "int64:ms:UTC", "OPC_FT": "int64:100ns:1601" },
+    "Quality": { "GOOD": 192, "BAD": 0, "UNCERTAIN": 64, "+SUBST": 16, "+LIMITED": 4 },
+    "Value": ["v:any", "q:Quality", "t:Timestamp", "unit:str?"],
+    "Range": ["lo:num", "hi:num", "lo_inc:bool", "hi_inc:bool", "unit:str"],
+    "Quantity": ["value:num", "unit:str", "uncertainty:num?"],
+    "Duration": ["value:num", "unit:ms|s|min|hr|day"],
+    "Status": ["code:int", "name:str", "sev:info|warn|error|fatal"]
+  }
+}
