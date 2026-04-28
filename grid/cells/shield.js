@@ -10,33 +10,33 @@ function r3(n,ay,ax){var x1=n.x*Math.cos(ay)+n.z*Math.sin(ay),z1=-n.x*Math.sin(a
 function pj(n,cx,cy,r){var f=2.8,s=r*f/(f+n.z+1.3);return{sx:cx+n.x*s,sy:cy-n.y*s,d:Math.max(0,(n.z+1.5)/3)}}
 
 var OUTER=[
-{n:127,r:1.45,color:'rgba(26,42,74,0.15)',sy:0.04,sx:0.015,cd:0.50},
-{n:127,r:1.30,color:'rgba(34,51,85,0.18)',sy:0.06,sx:0.02,cd:0.52},
-{n:127,r:1.18,color:'rgba(42,68,102,0.22)',sy:0.08,sx:0.03,cd:0.52},
-{n:127,r:1.08,color:MERS[4],sy:0.10,sx:0.035,cd:0.53},
-{n:127,r:0.95,color:MERS[3],sy:0.12,sx:0.04,cd:0.53}];
+{n:127,r:1.45,color:'rgba(26,42,74,0.15)',sy:0.15,sx:0.06,cd:0.50},
+{n:127,r:1.30,color:'rgba(34,51,85,0.18)',sy:0.20,sx:0.08,cd:0.52},
+{n:127,r:1.18,color:'rgba(42,68,102,0.22)',sy:0.25,sx:0.10,cd:0.52},
+{n:127,r:1.08,color:MERS[4],sy:0.30,sx:0.12,cd:0.53},
+{n:127,r:0.95,color:MERS[3],sy:0.35,sx:0.14,cd:0.53}];
 var INNER=[
-{n:127,r:0.72,color:'#00ccff',sy:0.18,sx:0.06,cd:0.54},
-{n:127,r:0.52,color:'#ff4444',sy:0.25,sx:0.09,cd:0.54},
-{n:127,r:0.38,color:'#00aadd',sy:0.35,sx:0.13,cd:0.54},
-{n:89,r:0.28,color:'#44aa44',sy:0.45,sx:0.17,cd:0.56},
-{n:61,r:0.20,color:GOLD,sy:0.55,sx:0.20,cd:0.58},
-{n:37,r:0.13,color:'#aa44ff',sy:0.70,sx:0.25,cd:0.62},
-{n:19,r:0.07,color:'#ffffff',sy:0.90,sx:0.32,cd:0.70}];
+{n:127,r:0.72,color:'#00ccff',sy:0.50,sx:0.20,cd:0.54},
+{n:127,r:0.52,color:'#ff4444',sy:0.65,sx:0.28,cd:0.54},
+{n:127,r:0.38,color:'#00aadd',sy:0.80,sx:0.35,cd:0.54},
+{n:89,r:0.28,color:'#44aa44',sy:1.00,sx:0.45,cd:0.56},
+{n:61,r:0.20,color:GOLD,sy:1.20,sx:0.55,cd:0.58},
+{n:37,r:0.13,color:'#aa44ff',sy:1.50,sx:0.70,cd:0.62},
+{n:19,r:0.07,color:'#ffffff',sy:2.00,sx:0.90,cd:0.70}];
 var BLM_ORB=[
-{orbit:0.55,tX:0.3,tZ:0,sp:0.10,ct:2,c:BLM[0],on:12},
-{orbit:0.62,tX:0.44,tZ:0.19,sp:-0.05,ct:3,c:BLM[1],on:14},
-{orbit:0.69,tX:0.58,tZ:0.38,sp:0.04,ct:5,c:BLM[2],on:16},
-{orbit:0.76,tX:0.72,tZ:0.57,sp:-0.03,ct:7,c:BLM[3],on:18},
-{orbit:0.83,tX:0.86,tZ:0.76,sp:0.02,ct:11,c:BLM[4],on:14},
-{orbit:0.90,tX:1.0,tZ:0.95,sp:-0.018,ct:13,c:BLM[5],on:12},
-{orbit:0.97,tX:1.14,tZ:1.14,sp:0.015,ct:17,c:BLM[6],on:10}];
+{orbit:0.55,tX:0.3,tZ:0,sp:0.30,ct:2,c:BLM[0],on:12},
+{orbit:0.62,tX:0.44,tZ:0.19,sp:-0.18,ct:3,c:BLM[1],on:14},
+{orbit:0.69,tX:0.58,tZ:0.38,sp:0.14,ct:5,c:BLM[2],on:16},
+{orbit:0.76,tX:0.72,tZ:0.57,sp:-0.10,ct:7,c:BLM[3],on:18},
+{orbit:0.83,tX:0.86,tZ:0.76,sp:0.08,ct:11,c:BLM[4],on:14},
+{orbit:0.90,tX:1.0,tZ:0.95,sp:-0.06,ct:13,c:BLM[5],on:12},
+{orbit:0.97,tX:1.14,tZ:1.14,sp:0.05,ct:17,c:BLM[6],on:10}];
 var MER_ORB=[
-{orbit:1.10,tX:0.2,tZ:-0.15,sp:0.05,ct:3,c:MERS[0],on:12},
-{orbit:1.21,tX:0.42,tZ:-0.33,sp:-0.025,ct:3,c:MERS[1],on:12},
-{orbit:1.32,tX:0.64,tZ:-0.51,sp:0.017,ct:2,c:MERS[2],on:12},
-{orbit:1.43,tX:0.86,tZ:-0.69,sp:-0.013,ct:3,c:MERS[3],on:12},
-{orbit:1.54,tX:1.08,tZ:-0.87,sp:0.010,ct:2,c:MERS[4],on:12}];
+{orbit:1.10,tX:0.2,tZ:-0.15,sp:0.15,ct:3,c:MERS[0],on:12},
+{orbit:1.21,tX:0.42,tZ:-0.33,sp:-0.08,ct:3,c:MERS[1],on:12},
+{orbit:1.32,tX:0.64,tZ:-0.51,sp:0.06,ct:2,c:MERS[2],on:12},
+{orbit:1.43,tX:0.86,tZ:-0.69,sp:-0.04,ct:3,c:MERS[3],on:12},
+{orbit:1.54,tX:1.08,tZ:-0.87,sp:0.035,ct:2,c:MERS[4],on:12}];
 
 var ALL=OUTER.concat(INNER);
 var pre=ALL.map(function(l){return{nodes:fS(l.n),ed:fE(fS(l.n),l.cd),r:l.r,color:l.color,sy:l.sy,sx:l.sx}});
