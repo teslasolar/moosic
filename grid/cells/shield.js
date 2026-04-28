@@ -2,7 +2,7 @@
 var BLM=['#993366','#00aadd','#ffaa00','#ff4444','#44aa44','#aa44ff','#cccccc'];
 var MERS=['#88ddff','#aaff88','#ff88dd','#ffcc44','#dd66ff'];
 var GOLD='#d4a94a',GA=Math.PI*(3-Math.sqrt(5)),P2=Math.PI*2;
-var _an=null,_fr=null;
+var _an=null,_fr=null,_extFr=null;
 
 function fS(n){var o=[];for(var i=0;i<n;i++){var t=(2*i+1)/(2*n),c=1-2*t,s=Math.sqrt(Math.max(0,1-c*c));o.push({x:s*Math.cos(GA*i),y:s*Math.sin(GA*i),z:c})}return o}
 function fE(nodes,dist){var e=[],d2=dist*dist;for(var i=0;i<nodes.length;i++)for(var j=i+1;j<nodes.length;j++){var a=nodes[i],b=nodes[j];if(Math.pow(a.x-b.x,2)+Math.pow(a.y-b.y,2)+Math.pow(a.z-b.z,2)<d2)e.push([i,j])}return e}
@@ -66,8 +66,16 @@ if(tabBtnId){var tb=document.getElementById(tabBtnId);if(tb)tb.onclick=grabTab}
   window.addEventListener('pointerdown',arm,{capture:true,once:true});
   window.addEventListener('keydown',arm,{capture:true,once:true});
   if(navigator.permissions&&navigator.permissions.query){navigator.permissions.query({name:'microphone'}).then(function(p){if(p.state==='granted')tick()}).catch(function(){})}
-  // Parent SCADA page signals when it has acquired the shared mic — prime immediately
-  window.addEventListener('message',function(ev){if(ev.data&&ev.data.type==='konomioke-mic-ready')arm()});
+  // Parent SCADA page signals mic-ready or streams 30 fps tab-audio frequency data
+  window.addEventListener('message',function(ev){
+    if(!ev.data)return;
+    if(ev.data.type==='konomioke-mic-ready')arm();
+    if(ev.data.type==='konomioke-tab-freqdata'&&Array.isArray(ev.data.data)){
+      var d=ev.data.data;
+      if(!_extFr||_extFr.length!==d.length)_extFr=new Uint8Array(d.length);
+      for(var _i=0;_i<d.length;_i++)_extFr[_i]=d[_i];
+    }
+  });
 })();
 
 function dOrb(l,cx,cy,r,s,av,band,idx){
@@ -113,7 +121,9 @@ var s=ts/1000,av=0,bands=new Float32Array(12);
 if(_an&&_fr){try{_an.getByteFrequencyData(_fr);
 var n=_fr.length,bw=Math.floor(n/12);
 for(var b=0;b<12;b++){var sum=0;for(var j=b*bw;j<(b+1)*bw&&j<n;j++)sum+=_fr[j]/255;bands[b]=sum/bw;av+=bands[b]}
-av/=12}catch(e){}}
+av/=12}catch(e){}}else if(_extFr){var n=_extFr.length,bw=Math.floor(n/12);
+for(var b=0;b<12;b++){var sum=0;for(var j=b*bw;j<(b+1)*bw&&j<n;j++)sum+=_extFr[j]/255;bands[b]=sum/bw;av+=bands[b]}
+av/=12;}
 x.globalAlpha=1;x.clearRect(0,0,W,H);
 var cx=W/2,cy=H/2,r=Math.min(cx,cy)*0.82;
 x.globalAlpha=Math.max(0,0.06+av*0.12);x.fillStyle='#0af';x.beginPath();x.arc(cx,cy,r*(1.5+av*0.3),0,P2);x.fill();
