@@ -1,0 +1,17 @@
+{
+  "_udt":"EmojiMap",
+  "ui":{"play":"▶","pause":"⏸","stop":"⏹","skip":"⏭","back":"⏮","rec":"⏺","up":"△","dn":"▽","ok":"✅","no":"❌","warn":"⚠","info":"ℹ","gear":"⚙","pin":"📌","clip":"📎","link":"🔗","key":"🔑","lock":"🔒","eye":"👁","edit":"✏","del":"🗑","save":"💾","load":"📥","send":"📤","new":"✨","hot":"🔥","cool":"❄","zap":"⚡","star":"⭐","heart":"❤","flag":"🚩"},
+  "media":{"yt":"📺","vid":"🎬","cam":"📷","mic":"🎤","vol":"🔊","mute":"🔇","note":"🎵","notes":"🎶","head":"🎧","disc":"💿","radio":"📻","mix":"🎛","wave":"〰","beat":"♪","chord":"♫"},
+  "grid":{"cell":"◻","row":"▦","col":"▥","grid":"⊞","expand":"⤢","shrink":"⤡","full":"⛶","split":"⫽","merge":"⫴","dock":"⊟","float":"⊞"},
+  "chain":{"mine":"⛏","block":"▣","tx":"↔","coin":"🪙","wallet":"💰","anchor":"⚓","burn":"🔥","mint":"🏭","stake":"🥩","hash":"#⃣","nonce":"🎲","utxo":"◈"},
+  "node":{"shield":"🛡","orb":"🔮","ring":"💍","bloom":"🌸","iris":"👁","pulse":"💓","wave":"🌊","spark":"✦","bindu":"·","phi":"φ","pi":"π","prime":"ℙ"},
+  "status":{"on":"🟢","off":"🔴","idle":"🟡","busy":"🟠","sync":"🔄","done":"✔","fail":"✘","wait":"⏳","live":"📡","dead":"💀","new":"🆕","up":"🔺","dn":"🔻"},
+  "device":{"watch":"⌚","phone":"📱","tablet":"📲","desk":"🖥","tv":"📺","vr":"🥽","pad":"🎮","keys":"⌨","mouse":"🖱"},
+  "data":{"db":"🗄","file":"📄","dir":"📁","log":"📋","tag":"🏷","json":"{}","csv":"📊","img":"🖼","bin":"📦","api":"⚙","mcp":"🔌","ws":"🌐"},
+  "people":{"user":"👤","group":"👥","bot":"🤖","ai":"🧠","dev":"👨‍💻","admin":"🛡","guest":"👻","voice":"🗣","ear":"👂"},
+  "math":{"sum":"Σ","prod":"Π","inf":"∞","sqrt":"√","delta":"Δ","theta":"θ","omega":"Ω","lambda":"λ","mu":"μ","sigma":"σ","euler":"ℯ","aleph":"ℵ"},
+  "weather":{"sun":"☀","moon":"🌙","cloud":"☁","rain":"🌧","bolt":"⛈","snow":"❄","wind":"🌬","fog":"🌫","rainbow":"🌈"},
+  "blm7":["#993366","#00aadd","#ffaa00","#ff4444","#44aa44","#aa44ff","#cccccc"],
+  "mer5":["#88ddff","#aaff88","#ff88dd","#ffcc44","#dd66ff"],
+  "rings":{"r1":"◯","r2":"◎","r3":"⊕","r4":"⊗","r5":"⊛","r6":"⊜","r7":"⊝"}
+}
