@@ -37,6 +37,7 @@
 <script src="../js/konomi/cube.js"></script>
 <script src="../js/konomi/system.js"></script>
 <script src="cells/yt-loader.js"></script>
+<script src="cells/shield.js"></script>
 <script>
 async function boot() {
   await loadScreenConfig();
@@ -45,6 +46,10 @@ async function boot() {
   var ghTags = await applyGithubTags(document.getElementById('grid'));
   document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');
   ytInit();
+  // Audio-reactive shield — auto-primes mic with 5s retry, optional tab-audio button.
+  if (typeof initShield === 'function' && document.getElementById('shield-cv')) {
+    try { initShield('shield-cv', 'shield-mic', 'shield-tab'); } catch (e) { console.warn('shield init', e); }
+  }
   setInterval(function(){ var el = document.getElementById('clock'); if (el) el.textContent = new Date().toLocaleTimeString() }, 1000);
 }
 boot();

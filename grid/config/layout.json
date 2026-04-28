@@ -1,9 +1,10 @@
 {
   "_udt": "GridLayout",
   "cols": 2,
-  "rows": 1,
+  "rows": 2,
   "cells": [
     {"id":"yt-player","t":"📺 YOUTUBE","col":0,"row":0,"w":1,"h":1},
-    {"id":"now-playing","t":"🎵 PLAYER","col":1,"row":0,"w":1,"h":1}
+    {"id":"now-playing","t":"🎵 PLAYER","col":1,"row":0,"w":1,"h":1},
+    {"id":"visualizer","t":"🛡 SHIELD · audio","col":0,"row":1,"w":2,"h":1}
   ]
 }

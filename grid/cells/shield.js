@@ -47,8 +47,26 @@ function sz(){W=cv.width=cv.parentElement.clientWidth;H=cv.height=cv.parentEleme
 sz();window.addEventListener('resize',sz);
 
 function hook(stream){var ac=new AudioContext(),src=ac.createMediaStreamSource(stream);_an=ac.createAnalyser();_an.fftSize=128;_fr=new Uint8Array(_an.frequencyBinCount);src.connect(_an)}
-if(micBtnId)document.getElementById(micBtnId).onclick=async function(){try{hook(await navigator.mediaDevices.getUserMedia({audio:true}));this.textContent='🔴 Mic';this.style.borderColor='#ff4466'}catch(e){}};
-if(tabBtnId)document.getElementById(tabBtnId).onclick=async function(){try{var s=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include',systemAudio:'include'});s.getVideoTracks().forEach(function(t){t.stop()});hook(s);this.textContent='🔴 Tab';this.style.borderColor='#ff4466'}catch(e){}};
+function setMicLabel(on){var b=micBtnId&&document.getElementById(micBtnId);if(!b)return;b.textContent=on?'🔴 Mic':'⚪ Mic';b.style.borderColor=on?'#ff4466':'#0af';b.style.color=on?'#ff4466':'#0af'}
+function setTabLabel(on){var b=tabBtnId&&document.getElementById(tabBtnId);if(!b)return;b.textContent=on?'🔴 Tab':'⚪ Tab';b.style.borderColor=on?'#ff4466':'#0af';b.style.color=on?'#ff4466':'#0af'}
+async function grabMic(){if(_an)return;try{hook(await navigator.mediaDevices.getUserMedia({audio:true}));setMicLabel(true)}catch(e){}}
+async function grabTab(){if(_an)return;try{var s=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include',systemAudio:'include'});s.getVideoTracks().forEach(function(t){t.stop()});hook(s);setTabLabel(true)}catch(e){}}
+if(micBtnId){var mb=document.getElementById(micBtnId);if(mb)mb.onclick=grabMic}
+if(tabBtnId){var tb=document.getElementById(tabBtnId);if(tb)tb.onclick=grabTab}
+
+// Auto-prime mic on first user gesture, then keep retrying every 5s until
+// permission is granted. Inside an iframe this works as long as the parent
+// forwards mic permission via allow="microphone *". Tab/system audio still
+// needs an explicit click because getDisplayMedia is gated to user activation.
+(function autoPrime(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
+  var timer=null,armed=false;
+  function tick(){if(_an){if(timer){clearInterval(timer);timer=null}return}grabMic()}
+  function arm(){if(armed)return;armed=true;tick();if(!_an&&!timer)timer=setInterval(tick,5000)}
+  window.addEventListener('pointerdown',arm,{capture:true,once:true});
+  window.addEventListener('keydown',arm,{capture:true,once:true});
+  if(navigator.permissions&&navigator.permissions.query){navigator.permissions.query({name:'microphone'}).then(function(p){if(p.state==='granted')tick()}).catch(function(){})}
+})();
 
 function dOrb(l,cx,cy,r,s,av,band,idx){
 var dir=idx%2?-1:1;
@@ -83,6 +101,11 @@ var oy2=oy*cX,oz2=oy*sX,ox3=ox*cZ-oy2*sZ,oy3=ox*sZ+oy2*cZ;
 var f=2.8,sc=scale*f/(f+oz2+1.3),sx=cx+ox3*sc,sy=cy-oy3*sc,d=Math.max(0,(oz2+1.5)/3);
 if(d>0.15)dMini(sx,sy,scale*(0.035+bv*0.02)*(0.5+d*0.6),sh.c,s+i*3+bv*5,sh.on)}}
 
+// Auto-prime mic on first user gesture, then keep retrying every 5s until
+// permission is granted. Same pattern as the konomioke engine — works inside
+// an iframe as long as the parent forwards microphone permission via
+// allow="microphone *". Tab/system audio still needs an explicit click
+// because getDisplayMedia is gated to user activation.
 function frame(ts){requestAnimationFrame(frame);
 var s=ts/1000,av=0,bands=new Float32Array(12);
 if(_an&&_fr){try{_an.getByteFrequencyData(_fr);
