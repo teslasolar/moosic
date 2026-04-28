@@ -36,61 +36,16 @@
 <script src="../js/konomi/blockarray.js"></script>
 <script src="../js/konomi/cube.js"></script>
 <script src="../js/konomi/system.js"></script>
+<script src="cells/yt-loader.js"></script>
 <script>
-const CHANNEL_ID = 'UCTfSIAa_NtbysEFPrBgJwJA';
-
 async function boot() {
   await loadScreenConfig();
   document.getElementById('screen-nav').innerHTML = buildScreenNav();
   await loadGrid();
-  const ghTags = await applyGithubTags(document.getElementById('grid'));
+  var ghTags = await applyGithubTags(document.getElementById('grid'));
   document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');
-
-  // Load YouTube videos
-  try {
-    const proxy = 'https://api.allorigins.win/raw?url=';
-    const feed = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-    const r = await fetch(proxy + encodeURIComponent(feed));
-    const xml = await r.text();
-    const doc = new DOMParser().parseFromString(xml, 'text/xml');
-    const entries = doc.querySelectorAll('entry');
-    const grid = document.getElementById('cb_yt-grid');
-    if (grid) {
-      grid.style.display = 'flex';
-      grid.style.gap = '4px';
-      grid.style.overflowX = 'auto';
-      grid.innerHTML = Array.from(entries).map(e => {
-        const id = e.querySelector('videoId')?.textContent || '';
-        const title = e.querySelector('title')?.textContent || '';
-        return `<div onclick="ytPlay('${id}')" style="min-width:120px;cursor:pointer;flex-shrink:0">
-          <img src="https://img.youtube.com/vi/${id}/default.jpg" style="width:120px;border-radius:3px" loading="lazy">
-          <div style="font-size:6px;color:var(--t);margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:120px">${title}</div>
-        </div>`;
-      }).join('');
-    }
-  } catch {}
-
-  setInterval(() => {
-    const el = document.getElementById('clock');
-    if (el) el.textContent = new Date().toLocaleTimeString();
-  }, 1000);
+  setInterval(function(){ var el = document.getElementById('clock'); if (el) el.textContent = new Date().toLocaleTimeString() }, 1000);
 }
-
-function ytPlay(id) {
-  const el = document.getElementById('cb_yt-player');
-  if (el) el.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="width:100%;height:100%;border-radius:4px"></iframe>`;
-  document.getElementById('track-name').textContent = 'YouTube: ' + id;
-}
-
-function ytSearch() {
-  const q = document.getElementById('yt-search')?.value?.trim();
-  if (!q) return;
-  const m = q.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if (m) { ytPlay(m[1]); return; }
-  const el = document.getElementById('cb_yt-player');
-  if (el) el.innerHTML = `<iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(q)}" frameborder="0" allow="autoplay" allowfullscreen style="width:100%;height:100%;border-radius:4px"></iframe>`;
-}
-
 boot();
 </script>
 </body></html>
