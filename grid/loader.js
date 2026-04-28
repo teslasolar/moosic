@@ -18,7 +18,8 @@ async function fetchGithubIssues() {
       headers: { Accept: 'application/vnd.github+json' },
       signal: AbortSignal.timeout(5000),
     });
-    ghIssues = await r.json();
+    var data = await r.json();
+    ghIssues = Array.isArray(data) ? data : [];
   } catch { ghIssues = []; }
   return ghIssues;
 }

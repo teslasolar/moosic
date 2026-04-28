@@ -19,7 +19,8 @@ async function loadGithubTags() {
       headers: { Accept: 'application/vnd.github+json' },
       signal: AbortSignal.timeout(5000),
     });
-    const issues = await r.json();
+    const data = await r.json();
+    const issues = Array.isArray(data) ? data : [];
     const tags = [];
     for (const issue of issues) {
       const m = issue.body?.match(/```json\s*([\s\S]*?)```/);
