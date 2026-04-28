@@ -28,6 +28,7 @@
 </div>
 
 <script src="loader.js"></script>
+<script src="config/github-tags.js"></script>
 <script src="../js/konomi/evgpu.js"></script>
 <script src="../js/konomi/femto.js"></script>
 <script src="../js/konomi/blockarray.js"></script>
@@ -38,7 +39,8 @@ const CHANNEL_ID = 'UCTfSIAa_NtbysEFPrBgJwJA';
 
 async function boot() {
   await loadGrid();
-  document.getElementById('status').textContent = 'Ready';
+  const ghTags = await applyGithubTags(document.getElementById('grid'));
+  document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');
 
   // Load YouTube videos
   try {

@@ -2,7 +2,8 @@
  * Grid loader — reads layout.json, creates cells, autoloads HTML from cells/
  */
 async function loadGrid() {
-  const r = await fetch('config/layout.json');
+  const base = new URL('.', document.baseURI).href;
+  const r = await fetch(base + 'config/layout.json');
   const layout = await r.json();
   const grid = document.getElementById('grid');
 
@@ -17,7 +18,7 @@ async function loadGrid() {
 
     // Autoload cell HTML from cells/ directory
     try {
-      const cr = await fetch('cells/' + cell.id + '.html');
+      const cr = await fetch(base + 'cells/' + cell.id + '.html');
       if (cr.ok) {
         document.getElementById('cb_' + cell.id).innerHTML = await cr.text();
       }
