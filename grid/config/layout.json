@@ -1,0 +1,19 @@
+{
+  "_udt": "GridLayout",
+  "cols": 8,
+  "rows": 5,
+  "cells": [
+    {"id":"now-playing","t":"🎵 NOW PLAYING","col":0,"row":0,"w":2,"h":2},
+    {"id":"visualizer","t":"📊 VISUALIZER","col":2,"row":0,"w":2,"h":2},
+    {"id":"femto","t":"🧠 FEMTO LLM","col":4,"row":0,"w":2,"h":1},
+    {"id":"evgpu","t":"⚡ eVGPU","col":6,"row":0,"w":1,"h":1},
+    {"id":"cube","t":"🎲 CUBE","col":7,"row":0,"w":1,"h":1},
+    {"id":"controls","t":"🎮 CONTROLS","col":4,"row":1,"w":2,"h":1},
+    {"id":"volume","t":"🔊 VOLUME","col":6,"row":1,"w":2,"h":1},
+    {"id":"playlist","t":"📜 PLAYLIST","col":0,"row":2,"w":3,"h":2},
+    {"id":"yt-player","t":"📺 YOUTUBE","col":3,"row":2,"w":3,"h":2},
+    {"id":"queue","t":"🔄 QUEUE","col":6,"row":2,"w":2,"h":1},
+    {"id":"search","t":"🔍 SEARCH","col":6,"row":3,"w":2,"h":1},
+    {"id":"yt-grid","t":"📺 VIDEOS","col":0,"row":4,"w":8,"h":1}
+  ]
+}
