@@ -1,0 +1,7 @@
+{
+  "_udt": "PlatformConfig",
+  "name": "Konomi Moosic",
+  "tagline": "Self-hosted music & video. No YouTube BS. Pure vibes.",
+  "repo": "teslasolar/moosic",
+  "features": ["audio player", "video player", "visualizer", "FemtoLLM analysis", "eVGPU", "drag-drop upload"]
+}

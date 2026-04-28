@@ -1,0 +1,11 @@
+{
+  "_udt": "ViewRegistry",
+  "styles": [
+    { "id": "base",     "file": "ui/css-base.css",     "lines": 36 },
+    { "id": "header",   "file": "ui/css-header.css",   "lines": 46 },
+    { "id": "player",   "file": "ui/css-player.css",   "lines": 169 },
+    { "id": "konomi",   "file": "ui/css-konomi.css",   "lines": 54 },
+    { "id": "playlist", "file": "ui/css-playlist.css",  "lines": 114 },
+    { "id": "misc",     "file": "ui/css-misc.css",     "lines": 93 }
+  ]
+}

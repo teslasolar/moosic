@@ -4,11 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎵 KONOMI MOOSIC 🎵</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="ui/css-base.css">
+  <link rel="stylesheet" href="ui/css-header.css">
+  <link rel="stylesheet" href="ui/css-player.css">
+  <link rel="stylesheet" href="ui/css-konomi.css">
+  <link rel="stylesheet" href="ui/css-playlist.css">
+  <link rel="stylesheet" href="ui/css-misc.css">
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
     <header class="header">
       <h1>🧬 KONOMI MOOSIC 🎵</h1>
       <p class="subtitle">Self-hosted music & video | No YouTube BS | Pure vibes</p>
@@ -18,10 +22,8 @@
       </div>
     </header>
 
-    <!-- Main Player -->
     <section class="player-section">
       <div class="player-container">
-        <!-- Video/Visualizer Area -->
         <div class="media-display" id="mediaDisplay">
           <video id="videoPlayer" style="display:none;"></video>
           <canvas id="visualizer"></canvas>
@@ -33,11 +35,7 @@
             </div>
           </div>
         </div>
-
-        <!-- Audio Player (hidden, controls via custom UI) -->
         <audio id="audioPlayer"></audio>
-
-        <!-- Controls -->
         <div class="controls">
           <div class="progress-container">
             <span id="currentTime">0:00</span>
@@ -59,33 +57,19 @@
       </div>
     </section>
 
-    <!-- KONOMI Processing Panel -->
     <section class="konomi-panel">
       <h3>⚡ KONOMI Processing</h3>
       <div class="konomi-grid">
-        <div class="konomi-stat">
-          <span class="label">🧠 FemtoLLM</span>
-          <span class="value" id="femtoStatus">Ready</span>
-        </div>
-        <div class="konomi-stat">
-          <span class="label">⚡ eVGPU</span>
-          <span class="value" id="evgpuStatus">4 cores</span>
-        </div>
-        <div class="konomi-stat">
-          <span class="label">🧊 BlockArray</span>
-          <span class="value" id="blockStatus">10³</span>
-        </div>
-        <div class="konomi-stat">
-          <span class="label">🎲 Cube</span>
-          <span class="value" id="cubeStatus">9 nodes</span>
-        </div>
+        <div class="konomi-stat"><span class="label">🧠 FemtoLLM</span><span class="value" id="femtoStatus">Ready</span></div>
+        <div class="konomi-stat"><span class="label">⚡ eVGPU</span><span class="value" id="evgpuStatus">4 cores</span></div>
+        <div class="konomi-stat"><span class="label">🧊 BlockArray</span><span class="value" id="blockStatus">10³</span></div>
+        <div class="konomi-stat"><span class="label">🎲 Cube</span><span class="value" id="cubeStatus">9 nodes</span></div>
       </div>
       <div class="femto-output" id="femtoOutput">
         <p>🎯 FemtoLLM Analysis: Waiting for track...</p>
       </div>
     </section>
 
-    <!-- Playlist Section -->
     <section class="playlist-section">
       <div class="playlist-header">
         <h3>📜 Playlist</h3>
@@ -95,34 +79,35 @@
         </div>
       </div>
       <div class="playlist" id="playlist">
-        <div class="empty-playlist">
-          <p>🎵 No tracks yet!</p>
-          <p>Click "Add Media" or drop files here</p>
-        </div>
+        <div class="empty-playlist"><p>🎵 No tracks yet!</p><p>Click "Add Media" or drop files here</p></div>
       </div>
     </section>
 
-    <!-- Upload Zone -->
     <div class="drop-zone" id="dropZone">
-      <div class="drop-content">
-        <span class="drop-icon">📁</span>
-        <p>Drop MP3/MP4 files here</p>
-      </div>
+      <div class="drop-content"><span class="drop-icon">📁</span><p>Drop MP3/MP4 files here</p></div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
       <p>🧬 KONOMI SYSTEM | eVGPU: CPU-powered | FemtoLLM: 16-dim | No GPU needed</p>
-      <p>Hosted on GitHub Pages | <a href="https://github.com" target="_blank">View Source</a></p>
     </footer>
   </div>
 
-  <!-- KONOMI System Scripts -->
-  <script src="js/konomi/evgpu.js"></script>
-  <script src="js/konomi/femto.js"></script>
-  <script src="js/konomi/blockarray.js"></script>
-  <script src="js/konomi/cube.js"></script>
-  <script src="js/konomi/system.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/konomi/evgpu-core.js"></script>
+  <script src="js/konomi/evgpu-compute.js"></script>
+  <script src="js/konomi/femto-core.js"></script>
+  <script src="js/konomi/femto-analyze.js"></script>
+  <script src="js/konomi/femto-output.js"></script>
+  <script src="js/konomi/blockarray-core.js"></script>
+  <script src="js/konomi/blockarray-ops.js"></script>
+  <script src="js/konomi/cube-core.js"></script>
+  <script src="js/konomi/cube-render.js"></script>
+  <script src="js/konomi/system-init.js"></script>
+  <script src="js/konomi/system-run.js"></script>
+  <script src="js/player/app-init.js"></script>
+  <script src="js/player/app-controls.js"></script>
+  <script src="js/player/app-queue.js"></script>
+  <script src="js/player/app-drag.js"></script>
+  <script src="js/player/app-visual.js"></script>
+  <script src="js/player/app-events.js"></script>
 </body>
 </html>

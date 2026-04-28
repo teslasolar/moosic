@@ -1,0 +1,24 @@
+{
+  "_udt": "ModuleRegistry",
+  "konomi": [
+    { "id": "evgpu-core",       "file": "js/konomi/evgpu-core.js",       "lines": 160, "class": "EVGPU" },
+    { "id": "evgpu-compute",    "file": "js/konomi/evgpu-compute.js",    "lines": 165 },
+    { "id": "femto-core",       "file": "js/konomi/femto-core.js",       "lines": 250, "class": "FemtoLLM" },
+    { "id": "femto-analyze",    "file": "js/konomi/femto-analyze.js",    "lines": 240 },
+    { "id": "femto-output",     "file": "js/konomi/femto-output.js",     "lines": 34 },
+    { "id": "blockarray-core",  "file": "js/konomi/blockarray-core.js",  "lines": 150, "class": "BlockArray" },
+    { "id": "blockarray-ops",   "file": "js/konomi/blockarray-ops.js",   "lines": 150 },
+    { "id": "cube-core",        "file": "js/konomi/cube-core.js",        "lines": 200, "class": "Cube" },
+    { "id": "cube-render",      "file": "js/konomi/cube-render.js",      "lines": 201 },
+    { "id": "system-init",      "file": "js/konomi/system-init.js",      "lines": 145, "class": "KonomiSystem" },
+    { "id": "system-run",       "file": "js/konomi/system-run.js",       "lines": 146 }
+  ],
+  "player": [
+    { "id": "app-init",     "file": "js/player/app-init.js",     "lines": 135, "class": "MoosicApp" },
+    { "id": "app-controls", "file": "js/player/app-controls.js", "lines": 135 },
+    { "id": "app-queue",    "file": "js/player/app-queue.js",    "lines": 135 },
+    { "id": "app-drag",     "file": "js/player/app-drag.js",     "lines": 135 },
+    { "id": "app-visual",   "file": "js/player/app-visual.js",   "lines": 136 },
+    { "id": "app-events",   "file": "js/player/app-events.js",   "lines": 137 }
+  ]
+}

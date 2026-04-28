@@ -1,0 +1,54 @@
+
+/* KONOMI Panel */
+.konomi-panel {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  margin-bottom: 30px;
+}
+
+.konomi-panel h3 {
+  margin-bottom: 15px;
+  color: var(--accent);
+}
+
+.konomi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.konomi-stat {
+  background: var(--bg-tertiary);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.konomi-stat .label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.konomi-stat .value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.femto-output {
+  background: var(--bg-primary);
+  padding: 15px;
+  border-radius: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  max-height: 150px;
+  overflow-y: auto;
+}
+

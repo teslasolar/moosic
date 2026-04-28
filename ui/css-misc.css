@@ -1,0 +1,93 @@
+/* Drop Zone */
+.drop-zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 255, 136, 0.1);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.drop-zone.active {
+  display: flex;
+}
+
+.drop-content {
+  text-align: center;
+  padding: 60px;
+  border: 3px dashed var(--accent);
+  border-radius: 20px;
+  background: var(--bg-secondary);
+}
+
+.drop-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .media-display {
+    height: 200px;
+  }
+
+  .control-buttons {
+    flex-wrap: wrap;
+  }
+
+  .volume-control {
+    width: 100%;
+    justify-content: center;
+    margin: 10px 0 0 0;
+  }
+
+  .konomi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
