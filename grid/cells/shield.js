@@ -50,36 +50,52 @@ function hook(stream){var ac=new AudioContext(),src=ac.createMediaStreamSource(s
 if(micBtnId)document.getElementById(micBtnId).onclick=async function(){try{hook(await navigator.mediaDevices.getUserMedia({audio:true}));this.textContent='🔴 Mic';this.style.borderColor='#ff4466'}catch(e){}};
 if(tabBtnId)document.getElementById(tabBtnId).onclick=async function(){try{var s=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include',systemAudio:'include'});s.getVideoTracks().forEach(function(t){t.stop()});hook(s);this.textContent='🔴 Tab';this.style.borderColor='#ff4466'}catch(e){}};
 
-function dOrb(l,cx,cy,r,s,av){
-var rot=l.nodes.map(function(n){return r3({x:n.x*l.r*(1+av*0.05),y:n.y*l.r*(1+av*0.05),z:n.z*l.r},s*l.sy+av*0.2,s*l.sx)});
+function dOrb(l,cx,cy,r,s,av,band,idx){
+var dir=idx%2?-1:1;
+var bv=band||0;
+var rotY=s*l.sy*(1+bv*3)+bv*dir*2;
+var rotX=s*l.sx*(1+bv*2)+bv*dir*1.5;
+var rotZ=bv*dir*Math.sin(s*0.5)*1.5;
+var sc=1+bv*0.15+av*0.05;
+var rot=l.nodes.map(function(n){
+  var p={x:n.x*l.r*sc,y:n.y*l.r*sc,z:n.z*l.r*sc};
+  p=r3(p,rotY,rotX);
+  var x1=p.x*Math.cos(rotZ)-p.y*Math.sin(rotZ);
+  var y1=p.x*Math.sin(rotZ)+p.y*Math.cos(rotZ);
+  return{x:x1,y:y1,z:p.z}});
 var prj=rot.map(function(n){return pj(n,cx,cy,r)});
-for(var k=0;k<l.ed.length;k++){var a=l.ed[k][0],b=l.ed[k][1],pa=prj[a],pb=prj[b],m=(pa.d+pb.d)*0.5;x.strokeStyle=l.color;x.globalAlpha=Math.max(0,0.04+m*0.25+av*0.1);x.lineWidth=Math.max(0.1,0.2+m*0.6);x.beginPath();x.moveTo(pa.sx,pa.sy);x.lineTo(pb.sx,pb.sy);x.stroke()}
-for(var k=0;k<prj.length;k++){var p=prj[k];x.fillStyle=l.color;x.globalAlpha=Math.max(0,0.12+p.d*0.65+av*0.15);x.beginPath();x.arc(p.sx,p.sy,Math.max(0.1,0.4+p.d*1.8+av*1.2),0,P2);x.fill()}}
+for(var k=0;k<l.ed.length;k++){var a=l.ed[k][0],b=l.ed[k][1],pa=prj[a],pb=prj[b],m=(pa.d+pb.d)*0.5;x.strokeStyle=l.color;x.globalAlpha=Math.max(0,0.04+m*0.25+bv*0.2);x.lineWidth=Math.max(0.1,0.2+m*0.6+bv*0.8);x.beginPath();x.moveTo(pa.sx,pa.sy);x.lineTo(pb.sx,pb.sy);x.stroke()}
+for(var k=0;k<prj.length;k++){var p=prj[k];x.fillStyle=l.color;x.globalAlpha=Math.max(0,0.12+p.d*0.65+bv*0.25);x.beginPath();x.arc(p.sx,p.sy,Math.max(0.1,0.4+p.d*1.8+bv*2),0,P2);x.fill()}}
 
 function dMini(cx,cy,r,color,s,n){
 var nodes=fS(n),rot=nodes.map(function(nd){return r3({x:nd.x*r,y:nd.y*r,z:nd.z*r},s*0.5,s*0.3)});
 var prj=rot.map(function(nd){return pj(nd,cx,cy,1)});
 for(var k=0;k<prj.length;k++){x.fillStyle=color;x.globalAlpha=Math.max(0,0.2+prj[k].d*0.6);x.beginPath();x.arc(prj[k].sx,prj[k].sy,Math.max(0.1,0.5+prj[k].d*1.2),0,P2);x.fill()}}
 
-function dOrbital(sh,cx,cy,scale,s,av){
-var wX=sh.tX+0.12*Math.sin(s*0.2),wZ=sh.tZ+0.08*Math.cos(s*0.15);
+function dOrbital(sh,cx,cy,scale,s,av,band){
+var bv=band||0;
+var wX=sh.tX+0.12*Math.sin(s*0.2)+bv*0.5,wZ=sh.tZ+0.08*Math.cos(s*0.15)+bv*0.3;
 var cX=Math.cos(wX),sX=Math.sin(wX),cZ=Math.cos(wZ),sZ=Math.sin(wZ);
-for(var i=0;i<sh.ct;i++){var a=i/sh.ct*P2+s*sh.sp*(1+av*0.5);
-var ox=Math.cos(a)*sh.orbit,oy=Math.sin(a)*sh.orbit;
+for(var i=0;i<sh.ct;i++){var a=i/sh.ct*P2+s*sh.sp*(1+bv*4+av*2);
+var orb=sh.orbit*(1+bv*0.1);
+var ox=Math.cos(a)*orb,oy=Math.sin(a)*orb;
 var oy2=oy*cX,oz2=oy*sX,ox3=ox*cZ-oy2*sZ,oy3=ox*sZ+oy2*cZ;
 var f=2.8,sc=scale*f/(f+oz2+1.3),sx=cx+ox3*sc,sy=cy-oy3*sc,d=Math.max(0,(oz2+1.5)/3);
-if(d>0.15)dMini(sx,sy,scale*0.035*(0.5+d*0.6),sh.c,s+i*3,sh.on)}}
+if(d>0.15)dMini(sx,sy,scale*(0.035+bv*0.02)*(0.5+d*0.6),sh.c,s+i*3+bv*5,sh.on)}}
 
 function frame(ts){requestAnimationFrame(frame);
-var s=ts/1000,av=0;
-if(_an&&_fr){try{_an.getByteFrequencyData(_fr);for(var j=0;j<_fr.length;j++)av+=_fr[j]/255;av/=_fr.length}catch(e){}}
+var s=ts/1000,av=0,bands=new Float32Array(12);
+if(_an&&_fr){try{_an.getByteFrequencyData(_fr);
+var n=_fr.length,bw=Math.floor(n/12);
+for(var b=0;b<12;b++){var sum=0;for(var j=b*bw;j<(b+1)*bw&&j<n;j++)sum+=_fr[j]/255;bands[b]=sum/bw;av+=bands[b]}
+av/=12}catch(e){}}
 x.globalAlpha=1;x.clearRect(0,0,W,H);
 var cx=W/2,cy=H/2,r=Math.min(cx,cy)*0.82;
-x.globalAlpha=Math.max(0,0.06+av*0.08);x.fillStyle='#0af';x.beginPath();x.arc(cx,cy,r*1.5,0,P2);x.fill();
-for(var i=0;i<5;i++)dOrb(pre[i],cx,cy,r,s,av);
-for(var i=0;i<MER_ORB.length;i++)dOrbital(MER_ORB[i],cx,cy,r,s,av);
-for(var i=0;i<BLM_ORB.length;i++)dOrbital(BLM_ORB[i],cx,cy,r,s,av);
-for(var i=5;i<pre.length;i++)dOrb(pre[i],cx,cy,r,s,av);
-var p=0.85+0.15*Math.sin(s*2.6)+av*0.3;x.globalAlpha=Math.max(0,0.5*p);x.fillStyle=GOLD;x.beginPath();x.arc(cx,cy,Math.max(0.1,r*0.015*p),0,P2);x.fill();
+x.globalAlpha=Math.max(0,0.06+av*0.12);x.fillStyle='#0af';x.beginPath();x.arc(cx,cy,r*(1.5+av*0.3),0,P2);x.fill();
+for(var i=0;i<5;i++)dOrb(pre[i],cx,cy,r,s,av,bands[i],i);
+for(var i=0;i<MER_ORB.length;i++)dOrbital(MER_ORB[i],cx,cy,r,s,av,bands[i+5]);
+for(var i=0;i<BLM_ORB.length;i++)dOrbital(BLM_ORB[i],cx,cy,r,s,av,bands[Math.min(i,11)]);
+for(var i=5;i<pre.length;i++)dOrb(pre[i],cx,cy,r,s,av,bands[Math.min(i+2,11)],i);
+var p=0.85+0.15*Math.sin(s*2.6)+av*0.5;x.globalAlpha=Math.max(0,0.5*p);x.fillStyle=GOLD;x.beginPath();x.arc(cx,cy,Math.max(0.1,r*(0.015+av*0.02)*p),0,P2);x.fill();
 x.globalAlpha=Math.max(0,0.9*p);x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,Math.max(0.1,r*0.006*p),0,P2);x.fill()}
 requestAnimationFrame(frame)}
