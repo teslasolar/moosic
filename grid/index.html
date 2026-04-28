@@ -29,6 +29,13 @@
   <span style="color:var(--t2)" id="clock"></span>
 </div>
 
+<script src="../js/state-widget.js"></script>
+<script>
+stateWidgetInit(
+  'stateDiagram-v2\n[*]-->load\nload-->fetchTags : GitHub API\nfetchTags-->applyTags : parse JSON\napplyTags-->ytInit : load channel\nytInit-->ready : grid live\nready-->poll : tag.poll intervals',
+  'load'
+);
+</script>
 <script src="loader.js"></script>
 <script src="config/github-tags.js"></script>
 <script src="../js/konomi/evgpu.js"></script>
@@ -40,16 +47,21 @@
 <script src="cells/shield.js"></script>
 <script>
 async function boot() {
+  if(typeof highlightState==='function')highlightState('load');
   await loadScreenConfig();
   document.getElementById('screen-nav').innerHTML = buildScreenNav();
   await loadGrid();
+  if(typeof highlightState==='function')highlightState('fetchTags');
   var ghTags = await applyGithubTags(document.getElementById('grid'));
+  if(typeof highlightState==='function')highlightState('applyTags');
   document.getElementById('status').textContent = 'Ready' + (ghTags ? ' · ' + ghTags + ' live tags' : '');
+  if(typeof highlightState==='function')highlightState('ytInit');
   ytInit();
   // Audio-reactive shield — auto-primes mic with 5s retry, single audio button.
   if (typeof initShield === 'function' && document.getElementById('shield-cv')) {
     try { initShield('shield-cv', 'shield-audio'); } catch (e) { console.warn('shield init', e); }
   }
+  if(typeof highlightState==='function')highlightState('ready');
   setInterval(function(){ var el = document.getElementById('clock'); if (el) el.textContent = new Date().toLocaleTimeString() }, 1000);
 }
 boot();
